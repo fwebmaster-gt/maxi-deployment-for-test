@@ -15,6 +15,7 @@ const Pagination = ({
   const getPageNumbers = () => {
     const pages = [];
     const maxVisiblePages = 5;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     if (totalPages <= maxVisiblePages) {
       // Si hay pocas páginas, mostrar todas
@@ -25,27 +26,35 @@ const Pagination = ({
       // Lógica para mostrar páginas con ellipsis
       if (currentPage <= 3) {
         // Páginas iniciales
-        for (let i = 1; i <= 4; i++) {
+        for (let i = 1; i <= (isMobile ? 3 : 4); i++) {
           pages.push(i);
         }
-        pages.push("...");
-        pages.push(totalPages);
+        if (!isMobile) {
+          pages.push("...");
+          pages.push(totalPages);
+        }
       } else if (currentPage >= totalPages - 2) {
         // Páginas finales
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - 3; i <= totalPages; i++) {
+        if (!isMobile) {
+          pages.push(1);
+          pages.push("...");
+        }
+        for (let i = totalPages - (isMobile ? 2 : 3); i <= totalPages; i++) {
           pages.push(i);
         }
       } else {
         // Páginas intermedias
-        pages.push(1);
-        pages.push("...");
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        if (!isMobile) {
+          pages.push(1);
+          pages.push("...");
+        }
+        for (let i = currentPage - (isMobile ? 0 : 1); i <= currentPage + (isMobile ? 0 : 1); i++) {
           pages.push(i);
         }
-        pages.push("...");
-        pages.push(totalPages);
+        if (!isMobile) {
+          pages.push("...");
+          pages.push(totalPages);
+        }
       }
     }
 
@@ -56,14 +65,15 @@ const Pagination = ({
 
   return (
     <div className="mt-8 flex justify-center">
-      <nav className="flex items-center space-x-2">
+      <nav className="flex items-center space-x-1 sm:space-x-2">
         {/* Botón Anterior */}
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 text-gray-500 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="px-2 py-2 sm:px-4 text-sm sm:text-base text-gray-500 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          Anterior
+          <span className="hidden sm:inline">Anterior</span>
+          <span className="sm:hidden">←</span>
         </button>
 
         {/* Números de página */}
@@ -74,7 +84,7 @@ const Pagination = ({
               typeof page === "number" ? onPageChange(page) : null
             }
             disabled={typeof page !== "number"}
-            className={`px-4 py-2 rounded-lg transition-colors font-medium ${
+            className={`px-2 py-2 sm:px-4 text-sm sm:text-base rounded-lg transition-colors font-medium ${
               page === currentPage
                 ? "bg-primary-600 text-white shadow-md hover:bg-primary-700"
                 : typeof page === "number"
@@ -90,9 +100,10 @@ const Pagination = ({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 text-gray-500 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="px-2 py-2 sm:px-4 text-sm sm:text-base text-gray-500 hover:text-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          Siguiente
+          <span className="hidden sm:inline">Siguiente</span>
+          <span className="sm:hidden">→</span>
         </button>
       </nav>
     </div>

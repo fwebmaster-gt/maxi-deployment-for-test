@@ -4,6 +4,45 @@ import { products } from "@/constants/products";
 import React from "react";
 import { notFound } from "next/navigation";
 import ProductCard from "@/components/molecules/ProductCard";
+import { Metadata } from "next";
+
+// Remplazar con llamada al servicio real
+async function getProduct(slug: string) {
+  const product = products.find((product) => product.slug === slug);
+  return product;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) {
+    return {
+      title: "No encontrado | Maxicompra",
+      description: "No está disponible.",
+    };
+  }
+
+  return {
+    title: `${product.name} | Maxicompra`,
+    description: `Descubre ${product.name} en Maxicompra. ${product.price ? `Precio: $${product.price.toFixed(2)}` : ''}`,
+    openGraph: {
+      title: `${product.name} | Maxicompra`,
+      description: `Descubre ${product.name} en Maxicompra`,
+      images: [product.image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | Maxicompra`,
+      description: `Descubre ${product.name} en Maxicompra`,
+      images: [product.image],
+    },
+  };
+}
 
 const ProductPage = async ({
   params,
@@ -11,8 +50,7 @@ const ProductPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-
-  const product = products.find((product) => product.slug === slug);
+  const product = await getProduct(slug);
 
   if (!product) {
     return notFound();
