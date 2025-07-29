@@ -75,7 +75,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; 2024 MAXICOMPRA. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} MAXICOMPRA. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
