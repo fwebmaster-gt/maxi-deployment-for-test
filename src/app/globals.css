@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fef2f2;
+  --color-primary-100: #fee2e2;
+  --color-primary-200: #fecaca;
+  --color-primary-300: #fca5a5;
+  --color-primary-400: #f87171;
+  --color-primary-500: #ef4444;
+  --color-primary-600: #dc2626;
+  --color-primary-700: #b91c1c;
+  --color-primary-800: #991b1b;
+  --color-primary-900: #7f1d1d;
+
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #3b82f6;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #1d4ed8;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a;
+
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
+
+  --color-flash: #dc2626;
+  --color-express: #1e40af;
+  --color-bono: #fbbf24;
+  --color-bono-light: #fde047;
+
+  --font-family-sans: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+input {
+  @apply outline-none;
+}
+
+/* Utilidades adicionales */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mejoras para la página de productos */
+.product-card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.product-card:hover {
+  @apply transform -translate-y-1 shadow-lg;
+}
+
+/* Animaciones suaves */
+.transition-all {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Mejoras para botones */
+.btn-primary {
+  @apply bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-md;
+}
+
+.btn-primary:hover {
+  @apply transform -translate-y-0.5 shadow-lg bg-gradient-to-r from-primary-700 to-primary-600;
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-secondary-800 to-secondary-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 ease-in-out;
+}
+
+.btn-secondary:hover {
+  @apply transform -translate-y-0.5 shadow-lg;
+}
+
+.btn-accent {
+  @apply bg-gradient-to-r from-bono to-bono-light text-gray-800 font-bold py-2 px-4 rounded-lg transition-all duration-300 ease-in-out;
+}
+
+.btn-accent:hover {
+  @apply transform -translate-y-0.5 shadow-lg;
+}
+
+/* Clases específicas del e-commerce */
+.flash-offer {
+  @apply bg-flash text-white font-bold text-sm px-3 py-1 rounded-full animate-pulse;
+}
+
+.express-shipping {
+  @apply bg-express text-white font-semibold text-sm px-3 py-1 rounded-full;
+}
+
+.bono-highlight {
+  @apply bg-gradient-to-r from-bono to-bono-light text-gray-800 font-black text-2xl px-6 py-3 rounded-xl shadow-xl transform rotate-1 border-2 border-white/20;
+}
+
+/* Header y navegación */
+.header-top {
+  @apply bg-gray-800 text-white text-sm font-medium;
+}
+
+.header-main {
+  @apply bg-white shadow-md;
+}
+
+.nav-secondary {
+  @apply bg-express text-white;
+}
+
+/* Tarjetas de productos */
+.product-card {
+  @apply bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden transition-all duration-300 ease-in-out;
+}
+
+.product-card:hover {
+  @apply shadow-xl border-primary-300 transform -translate-y-1;
+}
+
+/* Badges y etiquetas */
+.badge-primary {
+  @apply bg-primary-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm;
+}
+
+.badge-secondary {
+  @apply bg-secondary-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm;
+}
+
+.badge-accent {
+  @apply bg-accent-400 text-gray-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm;
+}
+
+/* Gradientes personalizados */
+.gradient-primary {
+  @apply bg-gradient-to-r from-primary-600 to-primary-500;
+}
+
+.gradient-secondary {
+  @apply bg-gradient-to-r from-secondary-800 to-secondary-600;
+}
+
+.gradient-bono {
+  @apply bg-gradient-to-r from-bono to-bono-light;
+}
