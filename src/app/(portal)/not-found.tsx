@@ -1,5 +1,6 @@
 "use client";
 
+import { appRoutes } from "@/constants/app-routes";
 import Link from "next/link";
 import { FaHome, FaSearch, FaExclamationTriangle } from "react-icons/fa";
 
@@ -50,14 +51,14 @@ const NotFound = () => {
 
         {/* Botones de navegación */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <Link href="/">
+          <Link href={`${appRoutes.home}`}>
             <button className="btn-primary flex items-center justify-center gap-2 w-full sm:w-auto">
               <FaHome className="text-lg" />
               Volver al Inicio
             </button>
           </Link>
 
-          <Link href="/productos">
+          <Link href={`${appRoutes.products}`}>
             <button className="btn-secondary flex items-center justify-center gap-2 w-full sm:w-auto">
               <FaSearch className="text-lg" />
               Explorar Productos

@@ -1,8 +1,15 @@
 import ProductsTemplate from "@/components/templates/ProductsTemplate";
-import { products, categories } from "@/constants/products";
+import { productService } from "@/services/products/services";
 
 const ProductsPage = async () => {
-  return <ProductsTemplate products={products} categories={categories} />;
+  const productsResult = await productService.getProducts();
+
+  if (!productsResult.ok) {
+    return <div>Error al obtener los productos</div>;
+  }
+
+  const products = productsResult.data;
+  return <ProductsTemplate products={products} />;
 };
 
 export default ProductsPage;

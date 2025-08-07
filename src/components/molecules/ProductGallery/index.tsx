@@ -1,4 +1,4 @@
-import { Product } from "@/constants/products";
+import { Product } from "@/services/products/model";
 
 type ProductGalleryProps = {
   product: Product;
@@ -10,8 +10,8 @@ const ProductGallery = ({ product }: ProductGalleryProps) => {
       <div className="aspect-square bg-white rounded-lg shadow-card overflow-hidden">
         <div className="w-full h-full flex items-center justify-center bg-gradient-secondary bg-opacity-10">
           <img
-            src={product.image}
-            alt={product.name}
+            src={product.images[0] ?? "https://placehold.co/600x400"}
+            alt={product.title}
             width={500}
             height={500}
             className="object-cover"

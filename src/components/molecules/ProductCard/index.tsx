@@ -1,6 +1,7 @@
-import { Product } from "@/constants/products";
 import Link from "next/link";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
+import { appRoutes } from "@/constants/app-routes";
+import { Product } from "@/services/products/model";
 
 type ProductCardProps = {
   product: Product;
@@ -12,18 +13,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Imagen del producto */}
       <div className="relative">
         <img
-          src={product.image}
-          alt={product.name}
+          src={product.images[0] ?? "https://placehold.co/600x400"}
+          alt={product.title}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col space-y-1">
-          {product.isNew && <span className="badge-accent">Nuevo</span>}
-          {product.discount > 0 && (
-            <span className="badge-primary">-{product.discount}%</span>
-          )}
-        </div>
 
         {/* Botones de acción */}
         <div className="absolute top-2 right-2 flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -38,9 +31,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
       {/* Información del producto */}
       <div className="p-4">
-        <Link href={`/${product.slug}`}>
+        {/* En lugar del id pasar el parametro sku correcto */}
+        <Link href={appRoutes.product(product.slug, product.id.toString())}>
           <h3 className="cursor-pointer font-semibold text-gray-900 mb-2 line-clamp-2">
-            {product.name}
+            {product.title}
           </h3>
         </Link>
 
@@ -51,16 +45,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <FaStar
                 key={i}
                 className={`w-4 h-4 ${
-                  i < Math.floor(product.rating)
-                    ? "text-accent-400"
-                    : "text-gray-300"
+                  i < Math.floor(4.5) ? "text-accent-400" : "text-gray-300"
                 }`}
               />
             ))}
           </div>
-          <span className="text-sm text-gray-600 ml-2">
-            ({product.reviews})
-          </span>
         </div>
 
         {/* Precios */}
@@ -68,11 +57,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <span className="text-xl font-bold text-primary-600">
             ${product.price.toFixed(2)}
           </span>
-          {product.originalPrice > product.price && (
-            <span className="text-sm text-gray-500 line-through">
-              ${product.originalPrice.toFixed(2)}
-            </span>
-          )}
         </div>
 
         {/* Botón de agregar al carrito este boton se puede separar a futuro para que sea cliente el boton y no bloquee el ssr */}

@@ -1,9 +1,19 @@
 import ProductCard from "@/components/molecules/ProductCard";
-import { getFeaturedProducts } from "@/constants/products";
+import { productService } from "@/services/products/services";
 
 const FeaturedProducts = async () => {
-  // usar servicio para obtener los productos destacados con ssr
-  const featuredProducts = getFeaturedProducts();
+  const productListResult = await productService.getProducts();
+
+  if (!productListResult.ok) {
+    return (
+      <div className="text-center text-red-500 py-16">
+        <p>Error al obtener los productos</p>
+        <pre>{JSON.stringify(productListResult.error, null, 2)}</pre>
+      </div>
+    );
+  }
+
+  const products = productListResult.data;
 
   return (
     <section className="py-16">
@@ -12,7 +22,7 @@ const FeaturedProducts = async () => {
           Productos Destacados
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredProducts.map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

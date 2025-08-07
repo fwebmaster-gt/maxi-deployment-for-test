@@ -9,27 +9,25 @@ import {
   FaMinus,
   FaPlus,
 } from "react-icons/fa";
-import Features from "@/components/organisms/ProductInformation/Features";
-import { Product } from "@/constants/products";
+import { Product } from "@/services/products/model";
 
 type ProductInformationProps = {
   product: Product;
-  features: string[];
 };
 
-const ProductInformation = ({ product, features }: ProductInformationProps) => {
+const ProductInformation = ({ product }: ProductInformationProps) => {
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
     console.log("Producto agregado al carrito:", {
-      product: product.name,
+      product: product.title,
       quantity,
     });
   };
 
   const handleBuyNow = () => {
-    console.log("Comprar ahora:", { product: product.name, quantity });
+    console.log("Comprar ahora:", { product: product.title, quantity });
   };
 
   return (
@@ -37,18 +35,18 @@ const ProductInformation = ({ product, features }: ProductInformationProps) => {
       {/* Nombre y precio */}
       <div>
         <div className="flex items-center space-x-2 mb-2">
-          <span className="badge-primary">-{product.discount}%</span>
+          <span className="badge-primary">-{15}%</span>
           <span className="badge-accent">BONO 14</span>
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          {product.name}
+          {product.title}
         </h1>
         <div className="flex items-center space-x-3 mb-4">
           <span className="text-3xl font-bold text-primary-600">
             ${product.price}
           </span>
           <span className="text-xl text-gray-500 line-through">
-            ${product.originalPrice}
+            ${product.price}
           </span>
         </div>
 
@@ -59,15 +57,13 @@ const ProductInformation = ({ product, features }: ProductInformationProps) => {
               <FaStar
                 key={star}
                 className={`w-5 h-5 ${
-                  star <= Math.floor(product.rating)
-                    ? "text-accent-400"
-                    : "text-gray-300"
+                  star <= Math.floor(4.5) ? "text-accent-400" : "text-gray-300"
                 }`}
               />
             ))}
           </div>
           <span className="text-gray-600">
-            {product.rating} ({product.reviews} reseñas)
+            {4.5} ({100} reseñas)
           </span>
         </div>
       </div>
@@ -159,9 +155,6 @@ const ProductInformation = ({ product, features }: ProductInformationProps) => {
           </div>
         </div>
       </div>
-
-      {/* Características */}
-      <Features features={features} />
 
       {/* Información adicional */}
       <div className="border-t border-gray-200 pt-6">

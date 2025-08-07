@@ -8,6 +8,7 @@ import {
   FaGift,
 } from "react-icons/fa";
 import { products } from "@/constants/products";
+import { appRoutes } from "@/constants/app-routes";
 
 const CarritoPage = () => {
   const cartItems = products.slice(0, 3);
@@ -32,7 +33,7 @@ const CarritoPage = () => {
 
             <div className="space-y-4">
               <Link
-                href="/productos"
+                href={`${appRoutes.products}`}
                 className="btn-primary inline-flex items-center"
               >
                 <FaArrowLeft className="mr-2" />
@@ -53,7 +54,7 @@ const CarritoPage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
-                href="/productos"
+                href={`${appRoutes.products}`}
                 className="btn-secondary inline-flex items-center"
               >
                 <FaArrowLeft className="mr-2" />
@@ -99,7 +100,12 @@ const CarritoPage = () => {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <Link href={`/${item.slug}`}>
+                            <Link
+                              href={`${appRoutes.product(
+                                item.slug,
+                                item.id.toString() // pasar sku a futuro
+                              )}`}
+                            >
                               <h3 className="cursor-pointer text-lg font-semibold text-gray-900 mb-1">
                                 {item.name}
                               </h3>

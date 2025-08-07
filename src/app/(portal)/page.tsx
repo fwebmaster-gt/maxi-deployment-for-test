@@ -1,19 +1,21 @@
-import CoverPage from "@/components/organisms/CoverPage";
+import { Suspense } from "react";
+import WhyMaxicomra from "@/components/organisms/WhyMaxicompra";
+import { phrases } from "@/constants/products";
+import FeaturedProductsLoading from "@/components/organisms/FeaturedProducts/loading";
 import FeaturedProducts from "@/components/organisms/FeaturedProducts";
 
+// en paginas como el home (donde pueden haber multiples llamados a la api a diferentes endpoints)
+// se puede usar un "suspense general" creando un archivo de loading.tsx en el mismo directorio
 export default function Home() {
   return (
     <div>
-      <CoverPage
-        title="Aprovecha Nuestras Ofertas Exclusivas Con Tu!!!"
-        description="Descubre nuestra increíble colección de productos con el mejor servicio al cliente"
-        buttonText="Ver Productos"
-        offerTitle="BONO 18"
-        offerDescription="¡Maximiza tu bono con nuestras super ofertas!"
-        buttonLink="/productos"
-      />
+      <div className="pt-4">
+        <WhyMaxicomra phrases={phrases} />
+      </div>
 
-      <FeaturedProducts />
+      <Suspense fallback={<FeaturedProductsLoading />}>
+        <FeaturedProducts />
+      </Suspense>
     </div>
   );
 }

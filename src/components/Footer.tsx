@@ -1,15 +1,22 @@
+import { appRoutes } from "@/constants/app-routes";
+import Image from "next/image"
+import Link from "next/link";
+
 export const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center mb-4">
-              <div className="w-8 h-8 bg-flash rounded-full flex items-center justify-center mr-2">
-                <span className="text-white font-bold">M</span>
-              </div>
-              <span className="font-bold text-xl">MAXICOMPRA</span>
-            </div>
+            <Link href={`${appRoutes.home}`} className="flex-shrink-0">
+              <Image
+                src="/assets/lg-maxicompra.png"
+                alt="Logo MaxiCompra"
+                width={180}
+                height={40}
+                priority
+              />
+            </Link>
             <p className="text-gray-300">
               Tu tienda de confianza para encontrar los mejores productos.
             </p>

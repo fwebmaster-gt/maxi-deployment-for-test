@@ -5,14 +5,13 @@ import { FaFilter } from "react-icons/fa";
 import ProductCard from "@/components/molecules/ProductCard";
 import Pagination from "@/components/molecules/Pagination";
 import SearchBar from "@/components/atoms/SearchBar";
-import { Product } from "@/constants/products";
+import { Product } from "@/services/products/model";
 
 type ProductsTemplateProps = {
   products: Product[];
-  categories: string[];
 };
 
-const ProductsTemplate = ({ products, categories }: ProductsTemplateProps) => {
+const ProductsTemplate = ({ products }: ProductsTemplateProps) => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [sortBy, setSortBy] = useState("popular");
   const [showFilters, setShowFilters] = useState(false);
@@ -21,8 +20,9 @@ const ProductsTemplate = ({ products, categories }: ProductsTemplateProps) => {
   // Filtrar productos
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
-      selectedCategory === "Todos" || product.category === selectedCategory;
-    const matchesSearch = product.name
+      selectedCategory === "Todos" ||
+      product.category.name === selectedCategory;
+    const matchesSearch = product.title
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -35,12 +35,8 @@ const ProductsTemplate = ({ products, categories }: ProductsTemplateProps) => {
         return a.price - b.price;
       case "price-high":
         return b.price - a.price;
-      case "rating":
-        return b.rating - a.rating;
-      case "newest":
-        return b.isNew ? 1 : -1;
       default:
-        return b.reviews - a.reviews; // popular
+        return b.price - a.price;
     }
   });
 
@@ -109,17 +105,17 @@ const ProductsTemplate = ({ products, categories }: ProductsTemplateProps) => {
                 Categorías
               </h3>
               <div className="space-y-2">
-                {categories.map((category) => (
+                {products.map((product, index) => (
                   <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
+                    key={index}
+                    onClick={() => setSelectedCategory(product.category.name)}
                     className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 font-medium ${
-                      selectedCategory === category
+                      selectedCategory === product.category.name
                         ? "bg-primary-600 text-white shadow-md"
                         : "hover:bg-primary-50 hover:text-primary-700 text-gray-700"
                     }`}
                   >
-                    {category}
+                    {product.category.name}
                   </button>
                 ))}
               </div>

@@ -126,7 +126,20 @@ export const categories = [
   "Tablets",
   "Audio",
   "Wearables",
+  "Celulares",
+  "Belleza",
+  "Juguetes",
+  "Libros"
 ];
+
+export const phrases = [
+  "Pedi facil y rapido",
+  "Envíos rápidos a toda Guatemala",
+  "Precios bajos garantizados",
+  "Compra segura y protegida ",
+  "Variedad de productos de calidad",
+  "Atención al cliente personalizada"
+]
 
 // Función para obtener productos destacados (primeros 4)
 export const getFeaturedProducts = () => products.slice(0, 4);
